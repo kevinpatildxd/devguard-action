@@ -1,0 +1,33 @@
+name: 'devguard'
+description: 'Audit your Node.js + React project — deps, env, and code quality in one command'
+author: 'kevinpatildxd'
+
+branding:
+  icon: 'shield'
+  color: 'yellow'
+
+inputs:
+  command:
+    description: 'Which command to run: deps, env, react, react:imports, react:hooks, react:bundle, react:a11y, react:server. Defaults to full audit.'
+    required: false
+    default: ''
+  strict:
+    description: 'Exit with code 1 if any errors are found (recommended for CI)'
+    required: false
+    default: 'true'
+  json:
+    description: 'Output results as JSON'
+    required: false
+    default: 'false'
+  file:
+    description: 'Path to a specific .env file (used with the env command)'
+    required: false
+    default: ''
+  version:
+    description: 'devguard version to use (e.g. 2.0.0). Defaults to latest.'
+    required: false
+    default: 'latest'
+
+runs:
+  using: 'node20'
+  main: 'index.js'
