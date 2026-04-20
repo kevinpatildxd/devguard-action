@@ -1,4 +1,4 @@
-name: 'devguard'
+name: 'devguard audit'
 description: 'Audit your Node.js + React project — deps, env, and code quality in one command'
 author: 'kevinpatildxd'
 
