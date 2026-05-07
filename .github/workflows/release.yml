@@ -20,6 +20,8 @@ jobs:
 
       - name: Update floating major version tag
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           MAJOR=$(echo "${{ github.ref_name }}" | cut -d. -f1)
           git tag -fa "$MAJOR" -m "Update $MAJOR tag to ${{ github.ref_name }}"
           git push origin "$MAJOR" --force
