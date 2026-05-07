@@ -27561,9 +27561,10 @@ const core = __nccwpck_require__(7484)
 async function run() {
   try {
     const command = core.getInput('command')
-    const strict = core.getInput('strict') === 'true'
-    const json = core.getInput('json') === 'true'
-    const file = core.getInput('file')
+    const strict  = core.getInput('strict') === 'true'
+    const json    = core.getInput('json')   === 'true'
+    const score   = core.getInput('score')  === 'true'
+    const file    = core.getInput('file')
     const version = core.getInput('version') || 'latest'
 
     const pkg = version === 'latest'
@@ -27572,8 +27573,9 @@ async function run() {
 
     let args = command ? command : ''
     if (strict) args += ' --strict'
-    if (json) args += ' --json'
-    if (file) args += ` --file ${file}`
+    if (json)   args += ' --json'
+    if (score)  args += ' --score'
+    if (file)   args += ` --file ${file}`
 
     const cmd = `npx --yes ${pkg} ${args}`.trim()
 
