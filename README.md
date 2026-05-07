@@ -27,8 +27,15 @@ That's it. CI fails automatically if devguard finds any errors.
 | `command` | Which command to run: `deps`, `env`, `react`, `react:imports`, `react:hooks`, `react:bundle`, `react:a11y`, `react:server`. Omit for full audit. | full audit |
 | `strict` | Fail CI on any error | `true` |
 | `json` | Output results as JSON | `false` |
+| `score` | Print health score (0–100) only, no detail output | `false` |
 | `file` | Path to a specific `.env` file (used with `env` command) | — |
-| `version` | devguard version to pin (e.g. `2.0.0`). Defaults to latest. | `latest` |
+| `version` | devguard version to pin (e.g. `2.1.0`). Defaults to latest. | `latest` |
+
+## Outputs
+
+| Output | Description |
+|---|---|
+| `score` | Project health score (0–100) |
 
 ## Examples
 

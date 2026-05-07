@@ -24,9 +24,17 @@ inputs:
     required: false
     default: ''
   version:
-    description: 'devguard version to use (e.g. 2.0.0). Defaults to latest.'
+    description: 'devguard version to use (e.g. 2.1.0). Defaults to latest.'
     required: false
     default: 'latest'
+  score:
+    description: 'Print health score only (0-100), no detail output'
+    required: false
+    default: 'false'
+
+outputs:
+  score:
+    description: 'Project health score (0-100)'
 
 runs:
   using: 'node20'
