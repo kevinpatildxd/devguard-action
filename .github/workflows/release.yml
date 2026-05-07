@@ -16,7 +16,7 @@ jobs:
           node-version: '20'
 
       - name: Install and build
-        run: npm ci && npm run build
+        run: npm install && npm run build
 
       - name: Commit dist
         run: |
