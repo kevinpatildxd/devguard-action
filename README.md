@@ -2,7 +2,7 @@
 
 GitHub Action for [devguard](https://github.com/kevinpatildxd/devguard) — audit your Node.js + React project in CI.
 
-Catches dependency issues, bad `.env` config, dead imports, re-render patterns, accessibility violations, and RSC boundary bugs — all in one step.
+Catches dependency issues, bad `.env` config, dead imports, re-render patterns, accessibility violations, RSC boundary bugs, hardcoded secrets, license issues, and supply chain risks — all in one step.
 
 ## Usage
 
@@ -24,12 +24,17 @@ That's it. CI fails automatically if devguard finds any errors.
 
 | Input | Description | Default |
 |---|---|---|
-| `command` | Which command to run: `deps`, `env`, `react`, `react:imports`, `react:hooks`, `react:bundle`, `react:a11y`, `react:server`. Omit for full audit. | full audit |
+| `command` | Which command to run: `deps`, `env`, `react`, `react:imports`, `react:hooks`, `react:bundle`, `react:a11y`, `react:server`, `react:secrets`. Omit for full audit. | full audit |
 | `strict` | Fail CI on any error | `true` |
 | `json` | Output results as JSON | `false` |
 | `score` | Print health score (0–100) only, no detail output | `false` |
+| `sarif` | Write a SARIF report to `devguard.sarif` for GitHub Code Scanning | `false` |
+| `licenses` | Audit package licenses for copyleft and missing declarations | `false` |
+| `supply-chain` | Check for install scripts, abandoned packages, and single-maintainer risk | `false` |
+| `duplicates` | Detect packages installed at multiple versions | `false` |
+| `scan-git` | Scan git history for accidentally committed `.env` files | `false` |
 | `file` | Path to a specific `.env` file (used with `env` command) | — |
-| `version` | devguard version to pin (e.g. `2.1.0`). Defaults to latest. | `latest` |
+| `version` | devguard version to pin (e.g. `3.3.0`). Defaults to latest. | `latest` |
 
 ## Outputs
 
@@ -54,7 +59,7 @@ That's it. CI fails automatically if devguard finds any errors.
     file: .env.production
 ```
 
-### Only React checks
+### Only React checks (including secrets scan)
 
 ```yaml
 - uses: kevinpatildxd/devguard-action@v1
@@ -62,12 +67,42 @@ That's it. CI fails automatically if devguard finds any errors.
     command: react
 ```
 
+### Full audit with license + supply chain checks
+
+```yaml
+- uses: kevinpatildxd/devguard-action@v1
+  with:
+    licenses: true
+    supply-chain: true
+    duplicates: true
+```
+
+### SARIF output for GitHub Code Scanning
+
+```yaml
+- uses: kevinpatildxd/devguard-action@v1
+  with:
+    sarif: true
+- uses: github/codeql-action/upload-sarif@v3
+  with:
+    sarif_file: devguard.sarif
+```
+
+### Scan git history for leaked secrets
+
+```yaml
+- uses: kevinpatildxd/devguard-action@v1
+  with:
+    command: env
+    scan-git: true
+```
+
 ### Pin to a specific version
 
 ```yaml
 - uses: kevinpatildxd/devguard-action@v1
   with:
-    version: '2.0.0'
+    version: '3.3.0'
 ```
 
 ### JSON output (for downstream steps)
