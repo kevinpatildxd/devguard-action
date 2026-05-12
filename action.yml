@@ -8,7 +8,7 @@ branding:
 
 inputs:
   command:
-    description: 'Which command to run: deps, env, react, react:imports, react:hooks, react:bundle, react:a11y, react:server. Defaults to full audit.'
+    description: 'Which command to run: deps, env, react, react:imports, react:hooks, react:bundle, react:a11y, react:server, react:secrets. Defaults to full audit.'
     required: false
     default: ''
   strict:
@@ -19,18 +19,38 @@ inputs:
     description: 'Output results as JSON'
     required: false
     default: 'false'
+  score:
+    description: 'Print health score only (0-100), no detail output'
+    required: false
+    default: 'false'
+  sarif:
+    description: 'Write a SARIF report to devguard.sarif (for GitHub Code Scanning)'
+    required: false
+    default: 'false'
+  licenses:
+    description: 'Audit package licenses for copyleft and missing declarations (deps command)'
+    required: false
+    default: 'false'
+  supply-chain:
+    description: 'Check for install scripts, abandoned packages, and single-maintainer risk (deps command)'
+    required: false
+    default: 'false'
+  duplicates:
+    description: 'Detect packages installed at multiple versions (deps command)'
+    required: false
+    default: 'false'
+  scan-git:
+    description: 'Scan git history for accidentally committed .env files (env command)'
+    required: false
+    default: 'false'
   file:
     description: 'Path to a specific .env file (used with the env command)'
     required: false
     default: ''
   version:
-    description: 'devguard version to use (e.g. 2.1.0). Defaults to latest.'
+    description: 'devguard version to use (e.g. 3.3.0). Defaults to latest.'
     required: false
     default: 'latest'
-  score:
-    description: 'Print health score only (0-100), no detail output'
-    required: false
-    default: 'false'
 
 outputs:
   score:
@@ -38,4 +58,4 @@ outputs:
 
 runs:
   using: 'node20'
-  main: 'index.js'
+  main: 'dist/index.js'
