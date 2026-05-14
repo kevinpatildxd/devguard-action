@@ -4,7 +4,7 @@ author: 'kevinpatildxd'
 
 branding:
   icon: 'shield'
-  color: 'yellow'
+  color: 'green'
 
 inputs:
   command:
@@ -51,6 +51,14 @@ inputs:
     description: 'devguard version to use (e.g. 3.3.0). Defaults to latest.'
     required: false
     default: 'latest'
+  timeout:
+    description: 'Maximum seconds to wait for the audit to complete'
+    required: false
+    default: '300'
+  working-directory:
+    description: 'Working directory to run the audit in (useful for monorepos)'
+    required: false
+    default: ''
 
 outputs:
   score:
